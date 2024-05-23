@@ -16,6 +16,8 @@ export default async function Home() {
 
   console.log(session.user);
 
+  const initials = session.user.name.split(" ").map((name: string) => name[0]).join("");
+
   return (
     <div className="grid h-screen w-full pl-[56px]">
       <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
@@ -25,7 +27,7 @@ export default async function Home() {
               <TooltipTrigger asChild>
                 <Avatar>
                   <AvatarImage src={session.user.picture} />
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarFallback>{initials}</AvatarFallback>
                 </Avatar>
               </TooltipTrigger>
               <TooltipContent side="right" sideOffset={5}>
@@ -63,7 +65,7 @@ export default async function Home() {
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="right" sideOffset={5}>
-                Connect models
+                Connect API's
               </TooltipContent>
             </Tooltip>
             <Tooltip>
