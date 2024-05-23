@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import AuthWrapper from "@/components/AuthWrapper";
+import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -20,7 +21,16 @@ export default function RootLayout({
     <html lang="en">
       <UserProvider>
         <AuthWrapper>
-          <body className={inter.className}>{children}</body>
+          <body className={inter.className}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </body>
         </AuthWrapper>
       </UserProvider>
     </html>

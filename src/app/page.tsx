@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { SettingsIcon, PaperclipIcon, MicIcon, CornerDownLeftIcon, SquareTerminalIcon, BotIcon, FileCode2Icon, Settings2Icon } from "@/components/Icons"
 import { getSession } from "@auth0/nextjs-auth0"
+import { ModeToggle } from "@/components/ui/toggleTheme"
 import { cp } from "fs"
 
 export default async function Home() {
@@ -12,6 +13,8 @@ export default async function Home() {
   if (!session) {
     return <div>Loading...</div>
   }
+
+  console.log(session.user);
 
   return (
     <div className="grid h-screen w-full pl-[56px]">
@@ -77,6 +80,7 @@ export default async function Home() {
         </nav>
         <nav className="mt-auto grid gap-1 p-2">
           <TooltipProvider>
+            <ModeToggle />
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button aria-label="Account" className="mt-auto rounded-lg" size="icon" variant="ghost">
@@ -115,7 +119,7 @@ export default async function Home() {
                         <span className="sr-only">Attach file</span>
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="top">Attach File</TooltipContent>
+                    <TooltipContent side="top">Add files</TooltipContent>
                   </Tooltip>
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -124,7 +128,7 @@ export default async function Home() {
                         <span className="sr-only">Use Microphone</span>
                       </Button>
                     </TooltipTrigger>
-                    <TooltipContent side="top">Use Microphone</TooltipContent>
+                    <TooltipContent side="top">Speak</TooltipContent>
                   </Tooltip>
                   <Button className="ml-auto gap-1.5" size="sm" type="submit">
                     Send Message
