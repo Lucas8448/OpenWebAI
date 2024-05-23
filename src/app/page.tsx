@@ -60,16 +60,6 @@ export default async function Home() {
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Button aria-label="API" className="rounded-lg" size="icon" variant="ghost">
-                  <FileCode2Icon className="size-5" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent side="right" sideOffset={5}>
-                Connect API's
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
                 <Button aria-label="Settings" className="rounded-lg" size="icon" variant="ghost">
                   <Settings2Icon className="size-5" />
                 </Button>
