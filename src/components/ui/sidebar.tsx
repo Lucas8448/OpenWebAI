@@ -5,9 +5,8 @@ import { getSession } from "@auth0/nextjs-auth0"
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { redirect } from "next/navigation"
 
-export default async function Sidebar() {
+export default async function Sidebar({ active }: { active: string }) {
     const session = await getSession();
     if (!session) {
         return <div>Loading...</div>
@@ -39,7 +38,7 @@ export default async function Sidebar() {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Link href="/">
-                                <Button aria-label="Playground" className="rounded-lg bg-muted" size="icon" variant="ghost">
+                                <Button aria-label="Playground" className={`rounded-lg ${active === 'home' ? 'bg-muted' : ''}`} size="icon" variant="ghost">
                                     <SquareTerminalIcon className="size-5" />
                                 </Button>
                             </Link>
@@ -51,7 +50,7 @@ export default async function Sidebar() {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Link href="/models">
-                                <Button aria-label="Models" className="rounded-lg" size="icon" variant="ghost">
+                                <Button aria-label="Models" className={`rounded-lg ${active === 'models' ? 'bg-muted' : ''}`} size="icon" variant="ghost">
                                     <BotIcon className="size-5" />
                                 </Button>
                             </Link>
@@ -63,7 +62,7 @@ export default async function Sidebar() {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Link href="/config">
-                                <Button aria-label="Settings" className="rounded-lg" size="icon" variant="ghost">
+                                <Button aria-label="config" className={`rounded-lg ${active === 'config' ? 'bg-muted' : ''}`} size="icon" variant="ghost">
                                     <Settings2Icon className="size-5" />
                                 </Button>
                             </Link>
@@ -80,7 +79,7 @@ export default async function Sidebar() {
                     <Tooltip>
                         <TooltipTrigger asChild>
                             <Link href="/settings">
-                                <Button aria-label="Account" className="mt-auto rounded-lg" size="icon" variant="ghost">
+                                <Button aria-label="Account" className={`mt-auto rounded-lg ${active === 'settings' ? 'bg-muted' : ''}`} size="icon" variant="ghost">
                                     <SettingsIcon className="size-5" />
                                 </Button>
                             </Link>

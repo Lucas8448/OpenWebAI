@@ -8,7 +8,7 @@ import Sidebar from "@/components/ui/sidebar"
 export default async function Home() {
   return (
     <div className="grid h-screen w-full pl-[56px]">
-      <Sidebar />
+      <Sidebar active="home" />
       <div className="flex flex-col">
         <main className="grid flex-1 gap-4 overflow-auto p-4">
           <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4">
