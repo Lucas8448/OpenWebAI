@@ -10,8 +10,6 @@ export async function GET() {
             throw new Error();
         }
 
-        console.log(openaiResponse);
-
         const data = await openaiResponse.json();
         return Response.json(data)
     } catch (error) {
