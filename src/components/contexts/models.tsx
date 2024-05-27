@@ -25,13 +25,7 @@ type ModelContextType = {
 
 const ModelContext = createContext<ModelContextType | undefined>(undefined);
 
-export const useModelContext = () => {
-    const context = useContext(ModelContext);
-    if (!context) {
-        throw new Error('useModelContext must be used within an ModelProvider');
-    }
-    return context;
-};
+export const useModelContext = () => useContext(ModelContext);
 
 type ModelProviderProps = {
     children: ReactNode;
