@@ -20,6 +20,7 @@ import { PaperclipIcon, MicIcon, CornerDownLeftIcon } from "@/components/Icons"
 import Sidebar from "@/components/ui/sidebar"
 import { useChat } from 'ai/react';
 import ReactMarkdown from 'react-markdown';
+import { ToolInvocation } from 'ai';
 
 export default function Home() {
   const [groqModels, setGroqModels] = useState([]);
@@ -36,7 +37,7 @@ export default function Home() {
     }
   });
 
-  let { messages, input, handleInputChange, handleSubmit } = useChat({
+  let { messages, input, handleInputChange, handleSubmit, experimental_addToolResult } = useChat({
     api: 'api/chat',
     body: {
       model: selectedModel.id,
@@ -77,7 +78,7 @@ export default function Home() {
     fetchGroqData();
   }, []);
 
-  const handleModelSelection = (model:any) => {
+  const handleModelSelection = (model: any) => {
     setSelectedModel(model);
   };
 
@@ -135,6 +136,61 @@ export default function Home() {
                       <div className="max-w-[75%] space-y-2">
                         <div className="rounded-2xl bg-gray-100 p-3 text-sm text-gray-900 dark:bg-gray-800 dark:text-gray-50">
                           <ReactMarkdown>{message.content}</ReactMarkdown>
+                          {message.toolInvocations?.map((toolInvocation: ToolInvocation) => {
+                            const toolCallId = toolInvocation.toolCallId;
+
+                            if (toolInvocation.toolName === 'askForConfirmation') {
+                              return (
+                                <div key={toolCallId}>
+                                  {toolInvocation.args.message}
+                                  <div>
+                                    {'result' in toolInvocation ? (
+                                      <b>{toolInvocation.result}</b>
+                                    ) : (
+                                      <>
+                                        <Button
+                                          onClick={() =>
+                                            experimental_addToolResult({
+                                              toolCallId,
+                                              result: 'Yes.',
+                                            })
+                                          }
+                                        >
+                                          Yes
+                                        </Button>
+                                        <Button
+                                          onClick={() =>
+                                            experimental_addToolResult({
+                                              toolCallId,
+                                              result: 'No',
+                                            })
+                                          }
+                                        >
+                                          No
+                                        </Button>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
+                              );
+                            } else if (toolInvocation.toolName === 'followUp') {
+                              console.log('toolInvocation', toolInvocation);
+                              return (
+                                <div key={toolCallId}>
+                                  {toolInvocation.args.message}
+                                </div>
+                              );
+                            }
+
+                            return 'result' in toolInvocation ? (
+                              <div key={toolCallId}>
+                                <strong>{`${toolInvocation.toolName}:`}</strong>
+                                {toolInvocation.result}
+                              </div>
+                            ) : (
+                              <div key={toolCallId}>Calling {toolInvocation.toolName}...</div>
+                            );
+                          })}
                         </div>
                       </div>
                     </div>
@@ -165,15 +221,17 @@ export default function Home() {
               />
               <div className="flex items-center p-3 pt-0">
                 <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Button size="icon" variant="ghost">
-                        <PaperclipIcon className="size-4" />
-                        <span className="sr-only">Attach file</span>
-                      </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="top">Add files</TooltipContent>
-                  </Tooltip>
+                  {selectedModel.capabilities.image_input && (
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button size="icon" variant="ghost">
+                          <PaperclipIcon className="size-4" />
+                          <span className="sr-only">Attach file</span>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="top">Add files</TooltipContent>
+                    </Tooltip>
+                  )}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button size="icon" variant="ghost">

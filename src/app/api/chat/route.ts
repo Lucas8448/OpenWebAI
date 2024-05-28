@@ -1,6 +1,7 @@
 import { OpenAIStream, StreamingTextResponse, convertToCoreMessages, streamText } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { createOpenAI } from '@ai-sdk/openai';
+import { z } from 'zod';
 
 export async function POST(req: Request) {
     const { messages, model, provider } = await req.json()
@@ -8,7 +9,22 @@ export async function POST(req: Request) {
     if (provider === 'openai') {
         const result = await streamText({
             model: openai(model),
-            messages: convertToCoreMessages(messages)
+            messages: convertToCoreMessages(messages),
+            system: "use follow up questions on every message to keep the conversation going.",
+            tools: {
+                followUp: {
+                    description: 'Generate 3-4 follow-up question based on your message.',
+                    parameters: z.object({
+                        message: z.string().describe('The message to generate follow-up questions for.'),
+                    }),
+                },
+                askForConfirmation: {
+                    description: 'Ask the user for confirmation.',
+                    parameters: z.object({
+                        message: z.string().describe('The message to confirm the action to be taken.'),
+                    }),
+                },
+            },
         });
 
         return result.toAIStreamResponse();
