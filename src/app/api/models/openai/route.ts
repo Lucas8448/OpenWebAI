@@ -1,17 +1,56 @@
+"use server";
+
 export async function GET() {
     try {
-        const openaiResponse = await fetch('https://api.openai.com/v1/engines', {
-            headers: {
-                Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+        const data = [
+            {
+                "id": "gpt-4o",
+                "provider": "openai",
+                "name": "GPT-4o",
+                "capabilities": {
+                    "image_input": true,
+                    "object_generation": true,
+                    "tool_usage": true,
+                    "tool_streaming": true,
+                }
             },
-        });
+            {
+                "id": "gpt-4-turbo",
+                "provider": "openai",
+                "name": "GPT-4 Turbo",
+                "capabilities": {
+                    "image_input": true,
+                    "object_generation": true,
+                    "tool_usage": true,
+                    "tool_streaming": true,
+                }
+            },
+            {
+                "id": "gpt-4",
+                "provider": "openai",
+                "name": "GPT-4",
+                "capabilities": {
+                    "image_input": false,
+                    "object_generation": true,
+                    "tool_usage": true,
+                    "tool_streaming": true,
+                }
+            },
+            {
+                "id": "gpt-3.5-turbo",
+                "provider": "openai",
+                "name": "GPT-3.5 Turbo",
+                "capabilities": {
+                    "image_input": false,
+                    "object_generation": true,
+                    "tool_usage": true,
+                    "tool_streaming": true,
+                }
+            }
+        ]
 
-        if (!openaiResponse.ok) {
-            throw new Error();
-        }
-
-        const data = await openaiResponse.json();
         return Response.json(data)
+
     } catch (error) {
         console.error(error);
         return Response.error();
