@@ -77,7 +77,7 @@ export default function Home() {
     fetchGroqData();
   }, []);
 
-  const handleModelSelection = (model) => {
+  const handleModelSelection = (model:any) => {
     setSelectedModel(model);
   };
 
