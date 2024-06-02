@@ -1,6 +1,7 @@
-import { OpenAIStream, StreamingTextResponse, convertToCoreMessages, streamText } from 'ai';
+import { OpenAIStream, StreamingTextResponse, convertToCoreMessages, streamText, tool } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { createOpenAI } from '@ai-sdk/openai';
+import { getPrecipationMap, getImages } from '@/components/tools';
 import { z } from 'zod';
 
 export async function POST(req: Request) {
@@ -12,18 +13,20 @@ export async function POST(req: Request) {
             messages: convertToCoreMessages(messages),
             system: "use follow up questions on every message to keep the conversation going.",
             tools: {
-                followUp: {
-                    description: 'Generate 3-4 follow-up question based on your message.',
-                    parameters: z.object({
-                        message: z.string().describe('The message to generate follow-up questions for.'),
-                    }),
-                },
-                askForConfirmation: {
-                    description: 'Ask the user for confirmation.',
-                    parameters: z.object({
-                        message: z.string().describe('The message to confirm the action to be taken.'),
-                    }),
-                },
+                precipationMap: tool({
+                    description: "Get the current precipitation map",
+                    parameters: z.object({}),
+                    execute: async () => {
+                        return await getPrecipationMap();
+                    }
+                }),
+                images: tool({
+                    description: "Get any images from pexels, but dont search for any rude terms",
+                    parameters: z.object({ query: z.string() }),
+                    execute: async (params) => {
+                        return await getImages(params.query);
+                    }
+                })
             },
         });
 

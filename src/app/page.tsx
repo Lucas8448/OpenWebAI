@@ -21,6 +21,7 @@ import Sidebar from "@/components/ui/sidebar"
 import { useChat } from 'ai/react';
 import ReactMarkdown from 'react-markdown';
 import { ToolInvocation } from 'ai';
+import RandomImagePile from '@/components/toolDisplays/images';
 
 export default function Home() {
   const [groqModels, setGroqModels] = useState([]);
@@ -139,46 +140,24 @@ export default function Home() {
                           {message.toolInvocations?.map((toolInvocation: ToolInvocation) => {
                             const toolCallId = toolInvocation.toolCallId;
 
-                            if (toolInvocation.toolName === 'askForConfirmation') {
-                              return (
+                            if (toolInvocation.toolName === 'precipationMap') {
+                              return 'result' in toolInvocation ? (
                                 <div key={toolCallId}>
-                                  {toolInvocation.args.message}
-                                  <div>
-                                    {'result' in toolInvocation ? (
-                                      <b>{toolInvocation.result}</b>
-                                    ) : (
-                                      <>
-                                        <Button
-                                          onClick={() =>
-                                            experimental_addToolResult({
-                                              toolCallId,
-                                              result: 'Yes.',
-                                            })
-                                          }
-                                        >
-                                          Yes
-                                        </Button>
-                                        <Button
-                                          onClick={() =>
-                                            experimental_addToolResult({
-                                              toolCallId,
-                                              result: 'No',
-                                            })
-                                          }
-                                        >
-                                          No
-                                        </Button>
-                                      </>
-                                    )}
-                                  </div>
+                                  <strong>{`${toolInvocation.toolName}:`}</strong>
+                                  {toolInvocation.result ? (
+                                    <img src={toolInvocation.result} alt="Precipation" />
+                                  ) : (
+                                    <p>Loading...</p>
+                                  )}
                                 </div>
+                              ) : (
+                                <div key={toolCallId}>Calling {toolInvocation.toolName}...</div>
                               );
-                            } else if (toolInvocation.toolName === 'followUp') {
-                              console.log('toolInvocation', toolInvocation);
-                              return (
-                                <div key={toolCallId}>
-                                  {toolInvocation.args.message}
-                                </div>
+                            } else if (toolInvocation.toolName === 'images') {
+                              return 'result' in toolInvocation ? (
+                                <RandomImagePile toolCallId={toolCallId} toolInvocation={toolInvocation} />
+                              ) : (
+                                <div key={toolCallId}>Calling {toolInvocation.toolName}...</div>
                               );
                             }
 
