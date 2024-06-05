@@ -1,22 +1,23 @@
-import { OpenAIStream, StreamingTextResponse, convertToCoreMessages, streamText, tool, generateText } from 'ai';
+import { convertToCoreMessages, streamText, tool } from 'ai';
 import { openai } from '@ai-sdk/openai';
 import { createOpenAI } from '@ai-sdk/openai';
 import { getPrecipationMap, getImages, getVideos, getNews } from '@/components/tools';
 import { z } from 'zod';
-import { Search } from 'lucide-react';
-import { get } from 'http';
-import language from 'react-syntax-highlighter/dist/esm/languages/hljs/1c';
+
+interface Message {
+    id?: string;
+    content: string;
+    toolInvocations?: any;
+}
 
 export async function POST(req: Request) {
     const { messages, model, provider } = await req.json()
     const lastMessage = messages[messages.length - 1];
-    messages.forEach((message, index) => {
+    messages.forEach((message: Message, index: number) => {
         if (message.toolInvocations && index !== messages.length - 1) {
             delete message.toolInvocations;
         }
     });
-
-    
 
     if (provider === 'openai') {
         const result = await streamText({

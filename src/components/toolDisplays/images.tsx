@@ -22,8 +22,40 @@ const ZoomInIcon = (props: React.SVGProps<SVGSVGElement>) => {
     );
 };
 
-const RandomImagePile = ({ toolCallId, toolInvocation }: { toolCallId: string; toolInvocation: any }) => {
+// result has an array of this object:
+
+interface toolInvocation {
+    toolCallId: string;
+    toolName: string;
+    args: {
+        query: string;
+    };
+    result: {
+        id: number;
+        width: number;
+        height: number;
+        avg_color: string;
+        photographer: string;
+        photographer_id: number;
+        photographer_url: string;
+        alt: string;
+        src: {
+            original: string;
+            large2x: string;
+            large: string;
+            medium: string;
+            small: string;
+            portrait: string;
+            landscape: string;
+            tiny: string;
+        };
+        url: string;
+    }[];
+}
+
+const RandomImagePile = ({ toolCallId, toolInvocation }: { toolCallId: string; toolInvocation: toolInvocation }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+    console.log(toolInvocation);
 
     const handleThumbnailClick = (index: number) => {
         setCurrentImageIndex(index);
