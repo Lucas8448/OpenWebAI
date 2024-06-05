@@ -1,38 +1,14 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+"use client"
+
 import { SettingsIcon, SquareTerminalIcon, BotIcon, Settings2Icon } from "@/components/Icons"
 import { ModeToggle } from "@/components/ui/toggleTheme"
-import { getSession } from "@auth0/nextjs-auth0"
 import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export default async function Sidebar({ active }: { active: string }) {
-    const session = await getSession();
-    if (!session) {
-        return <div>Loading...</div>
-    }
-
-    const initials = session.user.name.split(" ").map((name: string) => name[0]).join("");
-
+export default function Sidebar({ active }: { active: string }) {
     return (
         <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
-            <div className="border-b p-2">
-                <TooltipProvider>
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <Link href="/account">
-                                <Avatar>
-                                    <AvatarImage src={session.user.picture} />
-                                    <AvatarFallback>{initials}</AvatarFallback>
-                                </Avatar>
-                            </Link>
-                        </TooltipTrigger>
-                        <TooltipContent side="right" sideOffset={5}>
-                            {session.user.name}
-                        </TooltipContent>
-                    </Tooltip>
-                </TooltipProvider>
-            </div>
             <nav className="grid gap-1 p-2">
                 <TooltipProvider>
                     <Tooltip>
