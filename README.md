@@ -50,4 +50,8 @@ OpenWebAI is a platform designed to integrate various AI models and tools, provi
 
 For deployment, you can use Vercel or any platform that supports Next.js applications. Ensure all environment variables are correctly set up in the deployment settings.
 
+### File diagram
+
+[Diagram here!](https://app.eraser.io/workspace/zfnk3ucdvxfnhqKBfgtI?origin=share)
+
 Enjoy exploring OpenWebAI
