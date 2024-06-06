@@ -9,7 +9,7 @@ interface Message {
         toolCallId: string;
         toolName: string;
         result?: any;
-    }[];
+    }[] | undefined;
 }[]
 
 interface MessageProps {

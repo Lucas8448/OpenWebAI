@@ -27,10 +27,10 @@ const ZoomInIcon = (props: React.SVGProps<SVGSVGElement>) => {
 interface toolInvocation {
     toolCallId: string;
     toolName: string;
-    args: {
+    args?: {
         query: string;
     };
-    result: {
+    result?: {
         id: number;
         width: number;
         height: number;
@@ -50,7 +50,7 @@ interface toolInvocation {
             tiny: string;
         };
         url: string;
-    }[];
+    }[] | undefined;
 }
 
 const RandomImagePile = ({ toolCallId, toolInvocation }: { toolCallId: string; toolInvocation: toolInvocation }) => {
@@ -60,6 +60,10 @@ const RandomImagePile = ({ toolCallId, toolInvocation }: { toolCallId: string; t
     const handleThumbnailClick = (index: number) => {
         setCurrentImageIndex(index);
     };
+
+    if (!toolInvocation.result) {
+        return <div>Loading Images...</div>;
+    }
 
     return (
         <div className="flex flex-col items-center gap-4">

@@ -7,6 +7,9 @@ interface ToolInvocation {
     toolCallId: string;
     toolName: string;
     result?: any;
+    args?: {
+        query: string;
+    };
 }
 
 interface BotMessageProps {
