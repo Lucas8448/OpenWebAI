@@ -1,4 +1,3 @@
-import exp from "constants";
 import React, { useState } from "react";
 
 const ZoomInIcon = (props: React.SVGProps<SVGSVGElement>) => {
@@ -23,12 +22,60 @@ const ZoomInIcon = (props: React.SVGProps<SVGSVGElement>) => {
     );
 };
 
-const RandomVideoPile = ({ toolCallId, toolInvocation }: { toolCallId: string; toolInvocation: any }) => {
+interface toolInvocation {
+    toolCallId: string;
+    toolName: string;
+    args?: {
+        query: string;
+    };
+    result?: {
+        id: number;
+        width: number;
+        height: number;
+        avg_color: string;
+        photographer: string;
+        photographer_id: number;
+        photographer_url: string;
+        alt: string;
+        src: {
+            original: string;
+            large2x: string;
+            large: string;
+            medium: string;
+            small: string;
+            portrait: string;
+            landscape: string;
+            tiny: string;
+        };
+        url: string;
+        video_files: {
+            id: number;
+            quality: string;
+            file_type: string;
+            width: number;
+            height: number;
+            link: string;
+        }[];
+        video_pictures: {
+            id: number;
+            nr: number;
+            picture: string;
+        }[] | undefined;
+    }[];
+}
+
+const RandomVideoPile = ({ toolCallId, toolInvocation }: { toolCallId: string; toolInvocation: toolInvocation }) => {
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+    console.log(toolInvocation);
 
     const handleThumbnailClick = (index: number) => {
         setCurrentVideoIndex(index);
     };
+
+    if (!toolInvocation.result) {
+        return <div>Loading Videos...</div>;
+    }
 
     return (
         <div className="flex flex-col items-center gap-4">

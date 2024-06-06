@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import { UserProvider } from '@auth0/nextjs-auth0/client';
 import AuthWrapper from "@/components/AuthWrapper";
 import { ThemeProvider } from "@/components/theme-provider"
-import { ModelProvider } from '@/components/contexts/models';
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,7 +21,6 @@ export default function RootLayout({
     <html lang="en">
       <UserProvider>
         <AuthWrapper>
-          <ModelProvider>
             <body className={inter.className}>
               <ThemeProvider
                 attribute="class"
@@ -33,7 +31,6 @@ export default function RootLayout({
                 {children}
               </ThemeProvider>
             </body>
-          </ModelProvider>
         </AuthWrapper>
       </UserProvider>
     </html>
