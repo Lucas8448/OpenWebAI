@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# OpenWebAI: A Comprehensive AI and Tools Integration Platform
+
+OpenWebAI is a platform designed to integrate various AI models and tools, providing a experience for users to interact with AI models from OpenAI and Groq (and others), alongside a suite of utilities for fetching images, videos, and news articles. This platform is built with a modern tech stack, including React for the frontend, leveraging Next.js for server-side rendering and API routes, and a Vercel AI SDK for backend processing. It offers a user-friendly interface to explore AI capabilities, manage themes, and authenticate users, among other features.
+
+## Features
+
+- **AI Model Exploration**: Users can explore and interact with different AI models from OpenAI and Groq, including GPT-3.5 Turbo, GPT-4, and Llama models, each with detailed capabilities listed.
+- **Tool Integration**: Integrated tools for fetching precipitation maps, images, videos, and news articles, enhancing the AI interaction with real-world data.
+- **Theme Customization**: Supports light and dark themes, allowing users to customize their experience.
+- **Authentication**: Secure user authentication with Auth0 for a personalized experience.
+- **Responsive UI**: Built with accessibility and responsiveness in mind, ensuring a great experience across devices.
+- **Customization**: Full support for bringing different or custom providers, and simply integrating them
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js installed on your machine.
+- API keys for Pexels, WorldNewsAPI, GroqCloud, and OpenAI
+- Auth0 Project keys
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Installation
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Lucas8448/OpenWebAI.git
+   cd openwebai
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+3. Set up environment variables for API keys and other configurations in a `.env.local` file at the root of the project.
 
-To learn more about Next.js, take a look at the following resources:
+4. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Usage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Navigate to `http://localhost:3000` in your browser to access the application.
+- Use the sidebar to switch between different sections of the app.
+- Explore AI models and their capabilities in the Models section.
+- Use the integrated tools to fetch data like images, videos, and news articles.
 
-## Deploy on Vercel
+### Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+For deployment, you can use Vercel or any platform that supports Next.js applications. Ensure all environment variables are correctly set up in the deployment settings.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Enjoy exploring OpenWebAI
