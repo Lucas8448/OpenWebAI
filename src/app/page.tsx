@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Button } from "@/components/ui/button"
 import { TooltipTrigger, TooltipContent, Tooltip, TooltipProvider } from "@/components/ui/tooltip"
 import { Label } from "@/components/ui/label"
@@ -103,7 +103,13 @@ export default function Home() {
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
-                    handleSubmit(e);
+                    const syntheticEvent = {
+                      preventDefault: () => { },
+                      stopPropagation: () => { },
+                      target: document.createElement('form'),
+                      currentTarget: document.createElement('form')
+                    };
+                    handleSubmit(syntheticEvent as unknown as FormEvent<HTMLFormElement>);
                   }
                 }}
               />
