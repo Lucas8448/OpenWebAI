@@ -21,16 +21,16 @@ export default function RootLayout({
     <html lang="en">
       <UserProvider>
         <AuthWrapper>
-            <body className={inter.className}>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="system"
-                enableSystem
-                disableTransitionOnChange
-              >
-                {children}
-              </ThemeProvider>
-            </body>
+          <body className={inter.className}>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </body>
         </AuthWrapper>
       </UserProvider>
     </html>

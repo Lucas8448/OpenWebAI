@@ -57,6 +57,13 @@ const Menu: React.FC<ModelSelectorProps> = ({ openAiModels, groqModels, selected
                     )}
                 </MenubarContent>
             </MenubarMenu>
+            {process.env.NODE_ENV === "development" && (
+                <MenubarMenu>
+                    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-2 rounded-full flex items-center justify-center">
+                        Development
+                    </div>
+                </MenubarMenu>
+            )}
         </Menubar>
     );
 };
