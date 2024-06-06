@@ -41,7 +41,7 @@ OpenWebAI is a platform designed to integrate various AI models and tools, provi
 
 ### Recommended hosting architecture
 
-[[View here](https://app.eraser.io/workspace/rnPSKJFBiiJp7jCKWKoJ/preview?elements=kp2xzTclg8g20KDsCN-HoQ&type=embed)](https://app.eraser.io/workspace/rnPSKJFBiiJp7jCKWKoJ?elements=kp2xzTclg8g20KDsCN-HoQ)
+[View on Eraser![](https://app.eraser.io/workspace/rnPSKJFBiiJp7jCKWKoJ/preview?elements=kp2xzTclg8g20KDsCN-HoQ&type=embed)](https://app.eraser.io/workspace/rnPSKJFBiiJp7jCKWKoJ?elements=kp2xzTclg8g20KDsCN-HoQ)
 
 ### Usage
 
